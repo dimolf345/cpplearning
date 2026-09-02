@@ -5,6 +5,7 @@
 - [Difference between `gcc` and `g++`](#difference-gcc-gpp)
 - [The `main()` function and return value](#main-return-value)
 - [Methods to print on screen](#printf-vs-cout)
+- [The `using namespace std;` statement](#using-namespace-std)
 
 <a id="difference-gcc-gpp"></a>
 ## 1. Difference between gcc and g++
@@ -89,3 +90,53 @@ Exit codes are important when programs are used in scripts, CI pipelines, or aut
 <a id="printf-vs-cout"></a>
 ## Printf vs cout
 While `printf()` derivers from C, C++ uses traditionally `std::cout` to print to the console
+
+`printf()` can easily perform string interpolation, like:
+
+```cpp
+int main() {
+    printf("I am %i\n", 19); // replaces the %i parameter with 19
+}
+```
+
+<a id="using-namespace-std"></a>
+## 4. The `using namespace std;` statement
+
+`using namespace std;` tells the compiler to make all names in the `std` namespace directly accessible in the current scope.
+
+That is why you can write:
+
+```cpp
+cout << "Hello";
+```
+
+instead of:
+
+```cpp
+std::cout << "Hello";
+```
+
+### What it is designed for
+
+It was mainly designed as a convenience feature to reduce typing, especially in small examples, quick experiments, and short learning snippets.
+
+### Why it is usually avoided
+
+- It pollutes the global namespace with many names.
+- It can create name conflicts with your own identifiers or other libraries.
+- It can produce ambiguous symbol errors as projects grow.
+- In headers, it can force these conflicts onto every file that includes that header.
+
+### Recommended style
+
+- Prefer explicit names like `std::cout`, `std::string`, `std::vector`.
+- If you want shorter syntax, use selective declarations in narrow scope, for example:
+
+```cpp
+int main() {
+	using std::cout;
+	using std::endl;
+
+	cout << "Hello" << endl;
+}
+```
