@@ -7,6 +7,8 @@ float sum(float num1, float num2) {
     return num1 + num2;
 }
 
+void functionDeclaredBefore();
+
 //default value
 std::string sayHelloTo(std::string name = "Jack") {
     cout << "Hello " << name << "! " << endl;
@@ -21,7 +23,12 @@ void sayHello(std::string name) {
 
 
 int main(int argc, char const *argv[]) {
+    functionDeclaredBefore();
     sayHello("Luke");
     sayHelloTo();
     return 0;
+}
+
+void functionDeclaredBefore() {
+    cout << "Declared before!" <<endl;
 }
